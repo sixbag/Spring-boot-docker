@@ -16,6 +16,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag spring-boot-docker:$(date +%s)
+    - name: echo local image
+      run: docker images
     - name: SAS security image scan
       run: |
           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --network=host sas-image-scanner-registry.cn-hangzhou.cr.aliyuncs.com/sas_public/sas-image-scanner:latest --accessKeyId=${{ secrets.ACCESSKEYID }} --accessKeySecret=${{ secrets.ACCESSKEYSECRET }} --token=${{ secrets.SAS_TOKEN }} --imageId=spring-boot-docker:$(date +%s)
