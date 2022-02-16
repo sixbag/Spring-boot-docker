@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag spring-boot-docker:$(date +%s)
+    - name: SAS security image scan
+      run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --network=host sas-image-scanner-registry.cn-hangzhou.cr.aliyuncs.com/sas_public/sas-image-scanner:latest --accessKeyId=${{secrets.accessKeyID}} --accessKeySecret=${{secrets.acessKeySecret}} --token=${{secrets.SAS_TOKEN}} --imageId=spring-boot-docker:$(date +%s)
