@@ -18,6 +18,10 @@ jobs:
       run: docker build . --file Dockerfile --tag spring-boot-docker:$(date +%s)
     - name: echo local image
       run: docker images
+    - name: docker inspect
+      run: docker inspect spring-boot-docker:$(date +%s)
+    - name: dind inspect
+      run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --network=host docker:dind /bin/sh -c docker inspect spring-boot-docker:$(date +%s)
     - name: SAS security image scan
       run: |
           docker run --rm -v /var/run/docker.sock:/var/run/docker.sock --network=host sas-image-scanner-registry.cn-hangzhou.cr.aliyuncs.com/sas_public/sas-image-scanner:latest --accessKeyId=${{ secrets.ACCESSKEYID }} --accessKeySecret=${{ secrets.ACCESSKEYSECRET }} --token=${{ secrets.SAS_TOKEN }} --imageId=spring-boot-docker:$(date +%s)
