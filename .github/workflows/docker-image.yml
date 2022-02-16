@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  TEST_TAG: spring-boot-docker:$(date +%s)
+  TEST_TAG: spring-boot-docker:gitlab_action
 
 jobs:
 
