@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  REPO_TAG: your_docker_image_repo:your_docker_image_tag
+  REPO_TAG: github_actions_with_sas_image_scanner:test
 
 jobs:
 
