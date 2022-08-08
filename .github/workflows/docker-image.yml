@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  REPO_TAG: github_actions_with_sas_image_scanner:test
+  REPO_TAG: github_actions_with_sas_image_scanner:poc
 
 jobs:
 
